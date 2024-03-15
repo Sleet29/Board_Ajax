@@ -1,4 +1,4 @@
-package net.member.action;
+package net.board.action;
 import java.io.IOException;
 
 import jakarta.servlet.RequestDispatcher;
@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import net.common.action.Action;
 import net.common.action.ActionForward;
 
-@WebServlet("*.net")
-public class MemberFrontController extends jakarta.servlet.http.HttpServlet {
+@WebServlet("*.bo")
+public class BoardFrontController extends jakarta.servlet.http.HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -44,23 +44,8 @@ public class MemberFrontController extends jakarta.servlet.http.HttpServlet {
 		Action action = null;
 		
 		switch(command) {
-		case "/login.net" :
-			action= new MemberLoginAction();
-			break;
-		case "/join.net" :
-			action= new MemberJoinAction();
-			break;
-		case "/idcheck.net" :
-			action= new MemberIdCheckAction();
-			break;
-		case "/joinProcess.net":
-			action = new MemberJoinProcessAction();
-			break;
-		case "/loginProcess.net":
-			action = new MemberLoginProcessAction();
-			break;
-		case "/logout.net":
-			action = new MemberLogoutAction();
+		case "/BoardList.bo":
+			action = new BoardListAction();
 			break;
 		
 			

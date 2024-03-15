@@ -65,4 +65,29 @@ public class MemberDAO {
 		return result;
 	} // isId end
 	
+	public int isId(String id, String pass) {
+		int result = -1; // DB에 해당 id가 없습니다.
+		String sql = "select id, password from member where id = ? ";
+		try (Connection con = ds.getConnection();
+			 PreparedStatement pstmt = con.prepareStatement(sql);) {
+			
+			 pstmt.setString(1, id);
+			 try (ResultSet rs = pstmt.executeQuery()) {
+				 if(rs.next()) {
+					 if(rs.getString(2).equals(pass)) {
+						 result = 1; // 아이디와 비밀번호 일치하는 경우
+					 } else {
+						 result = 0; // 비밀번호 일치하지 않는 경우
+					 }
+				 }
+			 } catch (SQLException e) {
+				 e.printStackTrace();
+			 }
+			 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	} // isId end
 }
