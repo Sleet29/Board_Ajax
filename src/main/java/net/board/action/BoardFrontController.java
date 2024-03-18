@@ -47,7 +47,14 @@ public class BoardFrontController extends jakarta.servlet.http.HttpServlet {
 		case "/BoardList.bo":
 			action = new BoardListAction();
 			break;
-		
+			
+		case "/BoardWrite.bo":
+			action = new BoardWriteAction();
+			break;
+
+		case "/BoardAddAction.bo":
+			action = new BoardAddAction();
+			break;
 			
 		
 		} // switch (command)
