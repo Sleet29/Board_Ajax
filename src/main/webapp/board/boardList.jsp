@@ -82,7 +82,7 @@ select.form-control {
 				 		&nbsp;
 				 		</c:if>
 				 		
-				 		<a href="BoardDetailAction.bo?num=${b.board_num}">
+				 		<a href="BoardDetail.bo?num=${b.board_num}">
 				 			<c:if test="${b.board_subject.length()>=20 }">
 				 				<c:out value="${b.board_subject.substring(0,20)}..." />
 				 			</c:if>

@@ -13,7 +13,7 @@
 </head>
 <body>
  <div class="container">
- 	<form action = "BoardAddAction.bo" method="post" enctype="multipart/form-data"
+ 	<form action = "BoardAdd.bo" method="post" enctype="multipart/form-data"
  		  name = "boardform">
  	   <h1>MVC 게시판-write 페이지</h1>
  	   <div class="form-group">

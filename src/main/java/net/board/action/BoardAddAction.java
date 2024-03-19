@@ -46,7 +46,7 @@ public class BoardAddAction implements Action {
 					new DefaultFileRenamePolicy());
 		
 			// BoardBean 객체에 글 등록 폼에서 입력 받은 정보들을 저장합니다.
-			boarddata.setBoard_name(multi.getParameter("board_name"));
+			boarddata.setBoard_name(multi.getParameter("board_name")); // request.getparameter 절대 안됨!
 			boarddata.setBoard_pass(multi.getParameter("board_pass"));
 			boarddata.setBoard_subject(multi.getParameter("board_subject"));
 			boarddata.setBoard_content(multi.getParameter("board_content"));
