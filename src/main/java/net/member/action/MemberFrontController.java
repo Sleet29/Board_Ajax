@@ -62,6 +62,13 @@ public class MemberFrontController extends jakarta.servlet.http.HttpServlet {
 		case "/logout.net":
 			action = new MemberLogoutAction();
 			break;
+		case "/memberUpdate.net":
+			action = new MemberUpdateAction();
+			break;
+		case "/updateProcess.net":
+			action = new MemberUpdateProcessAction();
+			break;
+			
 			
 		
 			

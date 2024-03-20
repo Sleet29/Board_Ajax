@@ -72,6 +72,20 @@ public class BoardFrontController extends jakarta.servlet.http.HttpServlet {
 			action = new BoardReply();
 			break;
 			
+		case "/BoardReplyProcess.bo":
+			action = new BoardReplyProcessAction();
+			break;
+			
+		case "/BoardDelete.bo":
+			action = new BoardDeleteAction();
+			break;
+			
+		case "/BoardFileDown.bo":
+			action = new BoardFileDownAction();
+			break;
+			
+			
+			
 		
 		} // switch (command)
 		

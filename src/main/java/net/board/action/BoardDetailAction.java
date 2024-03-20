@@ -11,7 +11,6 @@ import net.common.action.Action;
 import net.common.action.ActionForward;
 
 public class BoardDetailAction implements Action {
-
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -21,7 +20,12 @@ public class BoardDetailAction implements Action {
 		// 글번호 파라미터 값을 num 변수에 저장합니다.
 		int num=Integer.parseInt(request.getParameter("num"));
 		
-		
+		// 특정 주소로부터의 이동을 확인하는 데 사용할 수 있는 정보는 요청 헤더인 "Referer"에 이씃ㅂ니다.
+		String referer = request.getHeader("Referer");
+		if (referer !=null && referer.contains("BoardList.bo")) {
+			// 내용을 확인할 글의 조회수를 증가시킵니다.
+			boarddao.setReadCountUpdate(num);
+		}
 		
 		// 글의 내용을 DAO에서 읽은 후 결과를 boarddata 객체에 저장합니다.
 		boarddata = boarddao.getDetail(num);

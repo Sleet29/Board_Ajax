@@ -8,19 +8,24 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import net.common.action.Action;
 import net.common.action.ActionForward;
-public class MemberLogoutAction implements Action {
+import net.member.db.Member;
+import net.member.db.MemberDAO;
 
+public class MemberUpdateAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
-		session.invalidate();
+		String id = (String) session.getAttribute("id");
+		
+		MemberDAO mdao = new MemberDAO();
+		Member m = mdao.member_info(id);
 		
 		ActionForward forward = new ActionForward();
-		forward.setPath("login.net");
-		forward.setRedirect(true);
+		forward.setPath("member/updateForm.jsp");
+		forward.setRedirect(false);
+		request.setAttribute("memberinfo", m);
 		return forward;
 	}
 

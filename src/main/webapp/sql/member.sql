@@ -19,14 +19,14 @@ create table member(
 select * from member;
 
 INSERT INTO MEMBER
-VALUES('admin','1234','관리자','29','m','admin@google.com','');
+VALUES('admin','1234','관리자','29','남','admin@google.com','');
 
 INSERT INTO MEMBER
-VALUES('user1','1234','유저1','24','f','user1@google.com','');
+VALUES('user1','1234','유저1','24','녀','user1@google.com','');
 
 INSERT INTO MEMBER
-VALUES('user2','1234','유저2','27','m','user2@google.com','');
+VALUES('user2','1234','유저2','27','남','user2@google.com','');
 
 INSERT INTO MEMBER
-VALUES('user3','1234','유저3','18','f','user3@google.com','');
+VALUES('user3','1234','유저3','18','녀','user3@google.com','');
 
