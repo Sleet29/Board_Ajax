@@ -50,7 +50,7 @@ input[type=file]{
 				<c:set var='src' value='image/profile.png'/>
 			</c:if>
 			<c:if test='${!empty memberinfo.memberfile}'>
-				<c:set var='src' value='${"memberupload/"}${memberinfo.memberfile}'/>
+				<c:set var='src' value='${"memberupload/"}${memberinfo.memberfile}'/> <%-- 데이터 연결하려면 두개 나란히 쓰면됨 --%>
 				<input type="hidden" name="check" value="${memberinfo.memberfile}"> <%-- 파일이 있는데 변경하지  --%>
 			</c:if>
 			<img src="${src}" width="20px" alt="profile">
