@@ -4,73 +4,79 @@
 <head>
 <title>회원관리 시스템 관리자모드(회원 목록 보기)</title>
 <jsp:include page="/board/header.jsp" />
- <link href="../css/memberList.css" type = "text/css" rel="stylesheet">
- <%--
- 1. 검색어를 입력한 후 다시 memberList.net으로 온 경우 검색 필드와 검색어가 나타나도록 합니다.
- --%>
-  <script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
+ <link href="css/memberList.css" type = "text/css" rel="stylesheet">
+<%--
+	1. 검색어를 입력한 후 다시 memberList.net으로 온 경우 검색 필드와 검색어가 나타나도록 합니다.
+
+	2. 검색 필드를 변경하면 검색어 입력창에 placeholder 나타나도록 합니다
+	   예로 아이디를 선택하면 placeholder로 "아이디 입력하세요"라고 나타납니다. 
+	   예로 이름을 선택하면 placeholder로 "이름 입력하세요"라고 나타납니다.
+       예로 나이를 선택하면 placeholder로 "나이 입력하세요"라고 나타납니다.
+	   예로 성별을 선택하면 placeholder로 "여 또는 남 입력하세요"라고 나타납니다.
+
+	3. 검색 버튼 클릭시 다음을 체크합니다.
+		1) 검색어를 입력하지 않은 경우 "검색어를 입력하세요" 라고 대화상자가 나타나게 합니다.
+		2) 나이는 두 자리 숫자가 아닌 경우 "나이는 형식에 맞게 입력하세요 (두자리 숫자)" 라고 대화상자가 나타나게 합니다.
+		3) 성별은 "남" 또는 "여"가 아닌 경우 "남 또는 여를 입력하세요" 라고 대화상자가 나타나게 합니다.
+
+	4. 회원 목록의 삭제를 클릭한 경우
+	   confirm("정말 삭제하시겠습니까?")를 실행해서 취소를 클릭하면 "membereDelete.net"로 이동하지 않습니다. 
+--%>
 <script>
+	$(function() {
+		// 검색 클릭 후 응답화면에는 검색시 선택한 필드가 선택되도록 합니다.
+		let selectedValue = '${search_field}'
+		if (selectedValue != '-1')
+			$("#viewcount").val(selectedValue);
+		else
+			selectedValue=0; // 선택된 필드가 없는 경우 기본적으로 아이디를 선택하도록 합니다.
+			
+		// 검색 후 selectedValue값에 따라 placeholder가 나타나도록 합니다.
+		const message=["아이디","이름", "나이", "여 또는 남"]
+		const $input = $(".input-group input");
+		$input.attr("placeholder",message[selectedValue] + "입력하세요");
+			
+	// 검색 버튼 클릭한 경우
+	$("button").click(function() {
+		// 검색어 공백 유효성 검사합니다.
+		const word = $input.val();
+		if ( word == '') {
+			alert("검색어를 입력하세요");
+			$input.focus();
+			return false;
+		}
+		
+		if (selectedValue == 2) {
+			const pattern = /^[0-9]{2}$/;
+			if(!pattern.test(word)) {
+				alert("나이는 형식에 맞게 입력하세요(두자리 숫자)");
+				return false;
+			}
+		} else if (selectedValue == 3) {
+			if (word != "남" && word != "여") {
+				alert("남 또는 여를 입력하세요");
+				return false;
+			}
+		}
+	}); // button click end
+	
+	// 검색어 입력창에 placeholder 나타나도록 합니다.
+	$("#viewcount").change(function() {
+		selectedValue = $(this).val();
+		$input.val('').attr("placeholder", message[selectedValue] + " 입력하세요");
+	}) // $("#viewcount").change end
+	
+		// 회원 목록의 삭제를 클릭한 경우
+		$("tr > td:nth-child(3) > a").click(function(event) {
+			const answer = confirm("정말 삭제하시겠습니까?");
+			console.log(answer); // 취소를 클릭한 경우-false
+			if (!answer) {// 취소를 클릭한 경우
+				event.preventDefault(); // 이동하지 않습니다.
+			}
+		}) // 삭제 클릭 end
+
+	}) // ready end
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
