@@ -22,4 +22,16 @@ select * from comm;
 	
 	select * from comm;
 	
+--1. member에 있는 memberfile이 필요합니다.
+--1. member에 있는 memberfile이 필요합니다.
+--1. member에 있는 memberfile이 필요합니다.
+
+	
+select 		comm.*, member.memberfile
+from 		comm inner join member
+on			comm.id=member.id
+where		comment_board_num = 21 -- 임의의 숫자 대입
+order by	comment_re_ref asc,
+			comment_re_seq asc;
+
 

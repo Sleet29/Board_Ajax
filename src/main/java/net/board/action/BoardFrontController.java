@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.common.action.Action;
 import net.common.action.ActionForward;
-
+import net.comment.action.*;
 @WebServlet("*.bo")
 public class BoardFrontController extends jakarta.servlet.http.HttpServlet {
 	
@@ -83,7 +83,21 @@ public class BoardFrontController extends jakarta.servlet.http.HttpServlet {
 		case "/BoardFileDown.bo":
 			action = new BoardFileDownAction();
 			break;
-			
+		case "/CommentAdd.bo":
+			action = new CommentAddAction();
+			break;
+		case "/CommentList.bo":
+			action = new CommentListAction();
+			break;
+		case "/CommentDelete.bo":
+			action = new CommentDeleteAction();
+			break;
+		case "/CommentUpdate.bo":
+			action = new CommentUpdateAction();
+			break;
+		case "/CommentReply.bo":
+			action = new CommentReplyAction();
+			break;
 			
 			
 		

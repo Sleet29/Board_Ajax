@@ -86,6 +86,7 @@ public class BoardListAction implements Action {
 		 if (endpage > maxpage)
 			 endpage = maxpage;
 		 
+		 // state 값으로 주었음
 		 String state = request.getParameter("state");
 		 
 		 if (state == null) {
