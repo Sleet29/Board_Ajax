@@ -1,6 +1,7 @@
 package net.comment.action;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +14,14 @@ public class CommentDeleteAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		int num = Integer.parseInt(request.getParameter("num"));
+		
+		net.comment.db.CommentDAO dao = new net.comment.db.CommentDAO();
+		
+		int result = dao.commentsDelete(num);
+		PrintWriter out = response.getWriter();
+		out.print(result);
+		
 		return null;
 	}
 

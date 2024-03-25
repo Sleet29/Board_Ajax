@@ -12,6 +12,8 @@ import javax.sql.DataSource;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import net.board.db.BoardBean;
+
 public class CommentDAO {
 	private DataSource ds;
 	
@@ -108,4 +110,106 @@ public class CommentDAO {
 			}
 			return array;
 		}// getCommentList()메서드 end
+	 
+	 public int commentsDelete(int num) {
+		 int result = 0;
+		 String sql = "delete comm where num = ? ";
+		  try (Connection con = ds.getConnection();
+				  PreparedStatement pstmt = con.prepareStatement(sql);) {
+			  
+			 pstmt.setInt(1, num);
+			 result = pstmt.executeUpdate();
+			 if (result == 1)
+				 System.out.println("데이터 삭제 되었습니다.");
+		  } catch (Exception e) {
+			  e.printStackTrace();
+		  }
+		  return result;
+	 }
+	 
+	 public int commentsUpdate(Comment co) {
+		 int result = 0;
+		 String sql = "update comm set content=? "
+		 		+ "where num = ? ";
+		 
+		 try (Connection con = ds.getConnection();
+				 PreparedStatement pstmt = con.prepareStatement(sql);) {
+			 pstmt.setString(1, co.getContent());
+			 pstmt.setInt(2, co.getNum());
+			 
+			 result = pstmt.executeUpdate();
+			 if (result == 1)
+				 System.out.println("데이터 수정 되었습니다.");
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 }
+		 return result;
+	 } // commentsUpdate() 메서드
+	 
+	 public int commentsReply(Comment c) {
+		 int result=0;
+			
+			try (Connection con = ds.getConnection(); ) {
+	   		  // 트랜잭션을 이용하기 위해서 setAutoCommit을 false로 설정합니다.
+	   		  con.setAutoCommit(false);
+	   			 
+	   		  try {
+	   			  reply_update(con, c.getComment_re_ref(), c.getComment_re_seq());
+	   			  result=reply_insert(con,c);
+	   			  con.commit();
+	   		  }
+	   		  catch(SQLException e) {
+	   			  e.printStackTrace();
+	   			  
+	   			  if (con != null) {
+	   				  try {
+	   					  con.rollback(); // rollback합니다.
+	   				  } catch (SQLException ex) {
+	   					  ex.printStackTrace();
+	   				  }
+	   			  }
+	   		  }
+	   		  con.setAutoCommit(true);
+	   	 } catch (Exception ex) {
+	   		 ex.printStackTrace();
+	   		 System.out.println("commentReply() 에러 : " + ex);
+	   	 }
+	   	 return result;
+	 }
+	 
+	 public void reply_update(Connection con, int re_ref, int re_seq) throws SQLException {
+			
+			String update_sql = "update comm "
+					+ "set 		COMMENT_RE_SEQ=COMMENT_RE_SEQ + 1 "
+					+ "where 	COMMENT_RE_REF = ? "
+					+ "and 		COMMENT_RE_SEQ > ? ";
+			
+			try(PreparedStatement pstmt = con.prepareStatement(update_sql);) {
+				pstmt.setInt(1, re_ref);
+				pstmt.setInt(2, re_seq);
+				pstmt.executeUpdate();
+			}
+		}
+		
+		public int reply_insert(Connection con,Comment c) throws SQLException {
+			int result=0;
+			String sql = "insert into comm "
+					+ "values(com_seq.nextval, ?, ?, sysdate, ?, ?, ?, ?)";
+			
+			try(PreparedStatement pstmt = con.prepareStatement(sql);) {
+				pstmt.setString(1, c.getId());
+				pstmt.setString(2, c.getContent());
+				pstmt.setInt(3, c.getComment_board_num());
+				pstmt.setInt(4, c.getComment_re_lev()+1);
+				pstmt.setInt(5, c.getComment_re_seq()+1);
+				pstmt.setInt(6, c.getComment_re_ref());
+				result = pstmt.executeUpdate();
+			}
+				return result;
+					
+		}
+		
+		
+		
+		
 }
